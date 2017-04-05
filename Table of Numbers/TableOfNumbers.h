@@ -13,7 +13,9 @@ namespace tableofnumbers
 
 	void TableBuilder(double numberOfValues, double firstNumber, double incrementNumber);
 
-	double Square(double userInput[]);
+	double Square(double number);
+
+	double SquareRoot(double number);
 }
 
 #endif

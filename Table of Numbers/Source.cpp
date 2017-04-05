@@ -15,6 +15,7 @@ int main()
 	double firstNumber = userInput[1];
 	double incrementValue = userInput[2];
 	TableBuilder(numberOfValues, firstNumber, incrementValue);
+	
 
 	return 0;
 }

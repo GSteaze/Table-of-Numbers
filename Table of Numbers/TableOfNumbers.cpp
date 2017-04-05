@@ -6,6 +6,7 @@
 using namespace std;
 
 const int kEndOfLine = 1024;
+const double kEpsilon = 0.0001;
 
 namespace tableofnumbers
 {
@@ -69,8 +70,28 @@ namespace tableofnumbers
 		fout.close();
 	}
 	
-	double Square(double userInput[])
+	double Square(double number)
 	{
-		return 0.0;
+		return number * number;
+	}
+
+	double SquareRoot(double number)
+	{
+		 if (number > -1)
+		{
+			double lastGuess = 1.0;
+			double nextGuess = 0.0;
+			while ((lastGuess - nextGuess) > kEpsilon)
+			{
+				nextGuess = ((lastGuess + number) / lastGuess) / 2;
+				lastGuess = nextGuess;
+			}
+			return nextGuess;
+		}
+		else
+		{
+			return 1001;
+		}
+	
 	}
 }
