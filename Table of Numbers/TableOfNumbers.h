@@ -10,6 +10,7 @@ namespace tableofnumbers
 	void InvalidInput(double variable, int min, int max);
 
 	void InputNumbers(double userInput[], int size);
+
 }
 
 #endif
