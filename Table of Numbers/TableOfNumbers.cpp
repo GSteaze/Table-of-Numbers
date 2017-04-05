@@ -36,20 +36,41 @@ namespace tableofnumbers
 		double firstValue = 0;
 		double incrementNumber = 0;
 
-		cout << "Enter a number between 1 and 25 : ";
+		cout << "Enter number of values in table (between 1 and 25) : ";
 		cin >> numberOfValues;
 		InvalidInput(numberOfValues, 1, 25);
 
-		cout << "Enter the first value in table between -1,000 and 1,000 : ";
+		cout << "Enter the first value in table (between -1,000 and 1,000) : ";
 		cin >> firstValue;
 		InvalidInput(firstValue, -1000, 1000);
 
-		cout << "Enter increment value between 1 and 20 : ";
+		cout << "Enter increment value (between 1 and 20) : ";
 		cin >> incrementNumber;
 		InvalidInput(incrementNumber, 1, 20);
 
 		userInput[0] = numberOfValues;
 		userInput[1] = firstValue;
 		userInput[2] = incrementNumber;
+	}
+
+	void TableBuilder(double numberOfValues, double firstNumber, double incrementNumber)
+	{
+		ofstream fout;
+		fout.open("NumberTable.txt");
+		double number = firstNumber;
+		fout << firstNumber << endl;
+		int index = 0;
+		while (numberOfValues > index)
+		{
+			number += incrementNumber;
+			fout << number << endl;
+			index++;
+		}
+		fout.close();
+	}
+	
+	double Square(double userInput[])
+	{
+		return 0.0;
 	}
 }

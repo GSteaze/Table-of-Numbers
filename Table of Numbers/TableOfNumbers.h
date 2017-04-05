@@ -11,6 +11,9 @@ namespace tableofnumbers
 
 	void InputNumbers(double userInput[], int size);
 
+	void TableBuilder(double numberOfValues, double firstNumber, double incrementNumber);
+
+	double Square(double userInput[]);
 }
 
 #endif
