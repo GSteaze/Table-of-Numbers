@@ -8,10 +8,11 @@ using namespace std;
 
 const int kEndOfLine = 1024;
 const double kEpsilon = 0.0001;
-const int kColumnWidthOne = 20;
+const int kColumnWidthOne = 12;
 const double kSmallestCubeRoot = 2.0;
 const double kOneThird = 0.33333333333333333333333;
 const double kTwo = 2.0;
+const int kDefaultListSize = 1000;
 
 namespace tableofnumbers
 {
@@ -121,43 +122,50 @@ namespace tableofnumbers
 
 	double CubeRoot(double number)
 	{
-		double firstNumber = kSmallestCubeRoot;
-		double holderNumber = kSmallestCubeRoot;
-		while (holderNumber < number)
+		if (number > -1)
 		{
-			holderNumber = firstNumber;
-			holderNumber = Cube(firstNumber);
-			if (holderNumber < number)
+			double firstNumber = kSmallestCubeRoot;
+			double holderNumber = kSmallestCubeRoot;
+			while (holderNumber < number)
 			{
-				firstNumber++;
+				holderNumber = firstNumber;
+				holderNumber = Cube(firstNumber);
+				if (holderNumber < number)
+				{
+					firstNumber++;
+				}
 			}
-		}
-		double firstGuess = (firstNumber + 1) / firstNumber;
+			double firstGuess = (firstNumber + 1) / firstNumber;
 
-		double nextGuess = 1.0;
-		bool isGreaterThanEpsilon = (firstGuess - nextGuess) > kEpsilon;
-		int counter = 0;
-		
-		while (isGreaterThanEpsilon)
+			double nextGuess = 1.0;
+			bool isGreaterThanEpsilon = (firstGuess - nextGuess) > kEpsilon;
+			int counter = 0;
+
+			while (isGreaterThanEpsilon)
+			{
+				if (counter != 0)
+				{
+					firstGuess = nextGuess;
+				}
+				nextGuess = (kOneThird) * ((kTwo * firstGuess) + (number / Square(firstGuess)));
+
+				if ((firstGuess - nextGuess) < 0)
+				{
+					isGreaterThanEpsilon = ((firstGuess - nextGuess) * -1) > kEpsilon;
+				}
+				else
+				{
+					isGreaterThanEpsilon = (firstGuess - nextGuess) > kEpsilon;
+				}
+
+				counter++;
+			}
+			return nextGuess;
+		}
+		else
 		{
-			if (counter != 0)
-			{
-				firstGuess = nextGuess;
-			}
-			nextGuess = (kOneThird) * ((kTwo * firstGuess) + (number / Square(firstGuess)));
-			
-			if ((firstGuess - nextGuess) < 0)
-			{
-				isGreaterThanEpsilon = ((firstGuess - nextGuess) * -1) > kEpsilon;
-			}
-			else
-			{
-				isGreaterThanEpsilon = (firstGuess - nextGuess) > kEpsilon;
-			}
-
-			counter++;
+			return 1001;
 		}
-		return nextGuess;
 	}
 
 	bool IsEven(int number)
@@ -166,22 +174,110 @@ namespace tableofnumbers
 		return isEven;
 	}
 
-	void CalculateResults()
+	bool IsPrime(int number)
 	{
+		bool isPrime = 1;
+		double halfTheNumber = number / 2;
 
+		for (int index = 2; index <= halfTheNumber; index++)
+		{
+			if (number % index == 0)
+			{
+				isPrime = 0;
+				return isPrime;
+			}
+		}
+		return isPrime;
+	}
+
+	int NumberOfDivisors(int number)
+	{
+		if (number < 0)
+		{
+			number = number * -1;
+		}
+
+		int counter = 0;
+
+		for (int index = 1; index < number; index++)
+		{
+			if (number % index == 0)
+			{
+				counter++;
+			}
+		}
+
+		return counter;
+	}
+
+	void DivisorsOfNumber(int number, double divisors[], int listSize, int numberOfDivisors)
+	{
+		if (number < 0)
+		{
+			number = number * -1;
+		}
+
+		for (int index = 1; index <= number; index++)
+		{
+			if (number % index == 0)
+			{
+				divisors[index - 1] = index;
+			}
+		}
+	}
+	
+	bool IsPerfect(int number, double divisors[], int listSize)
+	{
+		int numberOfDivisors = NumberOfDivisors(number);
+		DivisorsOfNumber(number, divisors, listSize, numberOfDivisors);
+		if (number < 0)
+		{
+			number = number * -1;
+		}
+
+		int sumOfDivisors = 0;
+		for (int index = 0; index < numberOfDivisors; index++)
+		{
+			sumOfDivisors += divisors[index];
+		}
+		bool isPerfect = number == sumOfDivisors;
+		return isPerfect;
+	}
+
+	void CalculateResults(double numberOfValues, double square[], double squareRoot[], double cube[], double cubeRoot[],
+		double evenOrOdd[], double primeOrNot[], double perfectOrNot[], double divisors[], int size)
+	{
+		ifstream fin;
+		fin.open("NumberTable.txt");
+
+		double number = 0;
+
+		for (int index = 0; index < numberOfValues; index++)
+		{
+			fin >> number;
+			square[index] = Square(number);
+			squareRoot[index] = SquareRoot(number);
+			cube[index] = Cube(number);
+			cubeRoot[index] = CubeRoot(number);
+			evenOrOdd[index] = IsEven(number);
+			primeOrNot[index] = IsPrime(number);
+			perfectOrNot[index] = IsPerfect(number, divisors, kDefaultListSize);
+		}
+
+		fin.close();
 	}
 
 	void DisplayResults(double square[], double squareRoot[], double cube[], double cubeRoot[],
 		double evenOrOdd[], double primeOrNot[], double perfectOrNot[], int size)
 	{
-		cout << setw(kColumnWidthOne) << "Square : ";
+		cout << "Square : ";
 		for (int index = 0; index < size; index++)
 		{
 			cout << square[index] << " ";
 		}
 		cout << endl;
 
-		cout << setw(kColumnWidthOne) << "Square Root : ";
+		cout << "Square Root : ";
 		for (int index = 0; index < size; index++)
 		{
 			if (squareRoot[index] == 1001)
@@ -195,14 +291,14 @@ namespace tableofnumbers
 		}
 		cout << endl;
 
-		cout << setw(kColumnWidthOne) << "Cube : ";
+		cout << "Cube : ";
 		for (int index = 0; index < size; index++)
 		{
 			cout << cube[index] << " ";
 		}
 		cout << endl;
 
-		cout << setw(kColumnWidthOne) << "Cube Root : ";
+		cout << "Cube Root : ";
 		for (int index = 0; index < size; index++)
 		{
 			if (cubeRoot[index] == 1001)
@@ -216,24 +312,45 @@ namespace tableofnumbers
 		}
 		cout << endl;
 
-		cout << setw(kColumnWidthOne) << "Even or Odd : ";
+		cout << "Even or Odd : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << evenOrOdd[index] << " ";
+			if (evenOrOdd[index] == 1)
+			{
+				cout << "Even ";
+			}
+			else
+			{
+				cout << "Odd ";
+			}
 		}
 		cout << endl;
 
-		cout << setw(kColumnWidthOne) << "Prime or Not : ";
+		cout << "Prime or Not : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << primeOrNot[index] << " ";
+			if (primeOrNot[index] == 1)
+			{
+				cout << "True ";
+			}
+			else
+			{
+				cout << "False ";
+			}
 		}
 		cout << endl;
 
-		cout << setw(kColumnWidthOne) << "Perfect or Not : ";
+		cout << "Perfect or Not : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << perfectOrNot[index] << " ";
+			if (perfectOrNot[index] == 1)
+			{
+				cout << "True ";
+			}
+			else
+			{
+				cout << "False ";
+			}
 		}
 		cout << endl;
 	}
@@ -244,54 +361,54 @@ namespace tableofnumbers
 		ofstream fout;
 		fout.open("Results.txt");
 
-		cout << setw(kColumnWidthOne) << "Square : ";
+		fout << setw(kColumnWidthOne) << "Square : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << square[index] << " ";
+			fout << square[index] << " ";
 		}
-		cout << endl;
+		fout << endl;
 
-		cout << setw(kColumnWidthOne) << "Square Root : ";
+		fout << setw(kColumnWidthOne) << "Square Root : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << squareRoot[index] << " ";
+			fout << squareRoot[index] << " ";
 		}
-		cout << endl;
+		fout << endl;
 
-		cout << setw(kColumnWidthOne) << "Cube : ";
+		fout << setw(kColumnWidthOne) << "Cube : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << cube[index] << " ";
+			fout << cube[index] << " ";
 		}
-		cout << endl;
+		fout << endl;
 
-		cout << setw(kColumnWidthOne) << "Cube Root : ";
+		fout << setw(kColumnWidthOne) << "Cube Root : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << cubeRoot[index] << " ";
+			fout << cubeRoot[index] << " ";
 		}
-		cout << endl;
+		fout << endl;
 
-		cout << setw(kColumnWidthOne) << "Even or Odd : ";
+		fout << setw(kColumnWidthOne) << "Even or Odd : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << evenOrOdd[index] << " ";
+			fout << evenOrOdd[index] << " ";
 		}
-		cout << endl;
+		fout << endl;
 
-		cout << setw(kColumnWidthOne) << "Prime or Not : ";
+		fout << setw(kColumnWidthOne) << "Prime or Not : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << primeOrNot[index] << " ";
+			fout << primeOrNot[index] << " ";
 		}
-		cout << endl;
+		fout << endl;
 
-		cout << setw(kColumnWidthOne) << "Perfect or Not : ";
+		fout << setw(kColumnWidthOne) << "Perfect or Not : ";
 		for (int index = 0; index < size; index++)
 		{
-			cout << perfectOrNot[index] << " ";
+			fout << perfectOrNot[index] << " ";
 		}
-		cout << endl;
+		fout << endl;
 	}
 
 }

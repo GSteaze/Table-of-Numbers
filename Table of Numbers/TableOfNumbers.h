@@ -5,7 +5,7 @@ using namespace std;
 
 namespace tableofnumbers
 {
-	void InitializeList(double userInput[], int size, double defaultValue);
+	void InitializeList(double list[], int size, double defaultValue);
 
 	void InvalidInput(double variable, int min, int max);
 
@@ -23,7 +23,16 @@ namespace tableofnumbers
 
 	bool IsEven(int number);
 
-	void CalculateResults();
+	bool IsPrime(int number);
+
+	int NumberOfDivisors(int number);
+
+	void DivisorsOfNumber(int number, double divisors[], int listSize, int numberOfDivisors);
+
+	bool IsPerfect(int number, double divisors[], int listSize);
+
+	void CalculateResults(double numberOfValues, double square[], double squareRoot[], double cube[], double cubeRoot[],
+		double evenOrOdd[], double primeOrNot[], double perfectOrNot[], double divisors[], int size);
 
 	void DisplayResults(double square[], double squareRoot[], double cube[], double cubeRoot[],
 		double evenOrOdd[], double primeOrNot[], double perfectOrNot[], int size);
