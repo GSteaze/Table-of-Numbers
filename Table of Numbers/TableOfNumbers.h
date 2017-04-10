@@ -16,6 +16,20 @@ namespace tableofnumbers
 	double Square(double number);
 
 	double SquareRoot(double number);
+
+	double Cube(double number);
+
+	double CubeRoot(double number);
+
+	bool IsEven(int number);
+
+	void CalculateResults();
+
+	void DisplayResults(double square[], double squareRoot[], double cube[], double cubeRoot[],
+		double evenOrOdd[], double primeOrNot[], double perfectOrNot[], int size);
+
+	void PrintResults(double square[], double squareRoot[], double cube[], double cubeRoot[],
+		double evenOrOdd[], double primeOrNot[], double perfectOrNot[], int size);
 }
 
 #endif
