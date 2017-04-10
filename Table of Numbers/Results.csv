@@ -1,0 +1,7 @@
+   Square : 1,16,49,100,169,
+Square Root : 1,2,2.64575,3.16228,3.60555,
+     Cube : 1,64,343,1000,2197,
+Cube Root : 1,1.5874,1.91293,2.15443,2.35133,
+Even or Odd : Odd,Even,Odd,Even,Odd,
+Prime or Not : True,False,True,False,True,
+Perfect or Not : False,False,False,False,False,

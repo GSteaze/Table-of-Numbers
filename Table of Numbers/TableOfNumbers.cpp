@@ -359,56 +359,77 @@ namespace tableofnumbers
 		double evenOrOdd[], double primeOrNot[], double perfectOrNot[], int size)
 	{
 		ofstream fout;
-		fout.open("Results.txt");
+		fout.open("Results.csv");
 
 		fout << setw(kColumnWidthOne) << "Square : ";
 		for (int index = 0; index < size; index++)
 		{
-			fout << square[index] << " ";
+			fout << square[index] << ",";
 		}
-		fout << endl;
+		fout << '\n';
 
 		fout << setw(kColumnWidthOne) << "Square Root : ";
 		for (int index = 0; index < size; index++)
 		{
-			fout << squareRoot[index] << " ";
+			fout << squareRoot[index] << ",";
 		}
-		fout << endl;
+		fout << '\n';
 
 		fout << setw(kColumnWidthOne) << "Cube : ";
 		for (int index = 0; index < size; index++)
 		{
-			fout << cube[index] << " ";
+			fout << cube[index] << ",";
 		}
-		fout << endl;
+		fout << '\n';
 
 		fout << setw(kColumnWidthOne) << "Cube Root : ";
 		for (int index = 0; index < size; index++)
 		{
-			fout << cubeRoot[index] << " ";
+			fout << cubeRoot[index] << ",";
 		}
-		fout << endl;
+		fout << '\n';
 
 		fout << setw(kColumnWidthOne) << "Even or Odd : ";
 		for (int index = 0; index < size; index++)
 		{
-			fout << evenOrOdd[index] << " ";
+			if (evenOrOdd[index] == 1)
+			{
+				fout << "Even,";
+			}
+			else
+			{
+				fout << "Odd,";
+			}
 		}
-		fout << endl;
+		fout << '\n';
 
 		fout << setw(kColumnWidthOne) << "Prime or Not : ";
 		for (int index = 0; index < size; index++)
 		{
-			fout << primeOrNot[index] << " ";
+			if (primeOrNot[index] == 1)
+			{
+				fout << "True,";
+			}
+			else
+			{
+				fout << "False,";
+			}
 		}
-		fout << endl;
+		fout << '\n';
 
 		fout << setw(kColumnWidthOne) << "Perfect or Not : ";
 		for (int index = 0; index < size; index++)
 		{
-			fout << perfectOrNot[index] << " ";
+			if (perfectOrNot[index] == 1)
+			{
+				fout << "True,";
+			}
+			else
+			{
+				fout << "False,";
+			}
 		}
-		fout << endl;
+		fout << '\n';
 	}
 
 }
