@@ -45,7 +45,7 @@ namespace tableofnumbers
 		{
 			cin.clear();
 			cin.ignore(kEndOfLine, '\n');
-			cout << "Please Try Again : " << endl;
+			cout << "Please Try Again : ";
 			cin >> variable;
 			isInvalid = cin.fail() || (variable < min || variable > max);
 		}
@@ -387,7 +387,7 @@ namespace tableofnumbers
 		{
 			if (squareRoot[index] == 1001)
 			{
-				cout << "N/A";
+				cout << "N/A ";
 			}
 			else
 			{
@@ -408,7 +408,7 @@ namespace tableofnumbers
 		{
 			if (cubeRoot[index] == 1001)
 			{
-				cout << "N/A";
+				cout << "N/A ";
 			}
 			else
 			{
