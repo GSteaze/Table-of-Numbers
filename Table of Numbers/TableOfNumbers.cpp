@@ -12,7 +12,7 @@ const int kColumnWidthOne = 12;
 const double kSmallestCubeRoot = 2.0;
 const double kOneThird = 0.33333333333333333333333;
 const double kTwo = 2.0;
-const int kDefaultListSize = 1000;
+const int kDefaultListSize = 25;
 
 namespace tableofnumbers
 {
@@ -432,4 +432,51 @@ namespace tableofnumbers
 		fout << '\n';
 	}
 
+	void TestCode()
+	{
+		cout << "Testing..." << endl << endl;
+
+		cout << "InitializeList" << endl;
+		double listOne[3];
+		double listTwo[5];
+		InitializeList(listOne, 3, 4);
+		InitializeList(listTwo, 5, 2);
+		cout << "listOne : ";
+		for (int index = 0; index < 3; index++)
+		{
+			cout << listOne[index] << " ";
+		}
+		cout << endl << "listTwo : ";
+		for (int index = 0; index < 5; index++)
+		{
+			cout << listTwo[index] << " ";
+		}
+
+		cout << endl << "NumberOfDivisors" << endl;
+		cout << NumberOfDivisors(2) << " ";
+		cout << NumberOfDivisors(4) << " ";
+
+		cout << endl << "DivisorsOfNumber" << endl;
+		double testDivisorsOne[kDefaultListSize];
+		InitializeList(testDivisorsOne, kDefaultListSize, 0);
+		double testDivisorsTwo[kDefaultListSize];
+		InitializeList(testDivisorsTwo, kDefaultListSize, 0);
+		int numberOfDivisorsSix = NumberOfDivisors(6);
+		DivisorsOfNumber(6, testDivisorsOne, kDefaultListSize, numberOfDivisorsSix);
+		cout << "Six : ";
+		for (int index = 0; index < numberOfDivisorsSix; index++)
+		{
+			cout << testDivisorsOne[index] << " ";
+		}
+		cout << endl;
+		int numberOfDivisorsFour = NumberOfDivisors(4);
+		DivisorsOfNumber(4, testDivisorsTwo, kDefaultListSize, numberOfDivisorsFour);
+		cout << "Four : ";
+		for (int index = 0; index < numberOfDivisorsFour; index++)
+		{
+			cout << testDivisorsTwo[index] << " ";
+		}
+		cout << endl;
+		//All other methods tested and shown directly in output of code
+	}
 }

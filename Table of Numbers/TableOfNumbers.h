@@ -39,6 +39,8 @@ namespace tableofnumbers
 
 	void PrintResults(double square[], double squareRoot[], double cube[], double cubeRoot[],
 		double evenOrOdd[], double primeOrNot[], double perfectOrNot[], int size);
+
+	void TestCode();
 }
 
 #endif

@@ -7,7 +7,7 @@
 using namespace std;
 using namespace tableofnumbers;
 
-const int kDefaultListSize = 1000;
+const int kDefaultListSize = 25;
 const double kDefaultValue = 1002.0;
 
 int main()
@@ -16,8 +16,8 @@ int main()
 	InitializeList(userInput, 3, 0.0);
 	InputNumbers(userInput, 3);
 	const double numberOfValues = userInput[0];
-	double firstNumber = userInput[1];
-	double incrementValue = userInput[2];
+	const double firstNumber = userInput[1];
+	const double incrementValue = userInput[2];
 	TableBuilder(numberOfValues, firstNumber, incrementValue);
 
 	double square[kDefaultListSize];
@@ -43,6 +43,9 @@ int main()
 		evenOrOdd, primeOrNot, perfectOrNot, numberOfValues);
 	PrintResults(square, squareRoot, cube, cubeRoot,
 		evenOrOdd, primeOrNot, perfectOrNot, numberOfValues);
+
+	cout << endl << endl;
+	TestCode();
 
 	return 0;
 }
