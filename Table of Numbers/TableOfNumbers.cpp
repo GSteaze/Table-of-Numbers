@@ -38,7 +38,7 @@ namespace tableofnumbers
 	@param minimum the minimum value of the desired range
 	@param maximum the maximum value of the desired range
 	*/
-	void InvalidInput(double variable, int min, int max)
+	double InvalidInput(double variable, int min, int max)
 	{
 		bool isInvalid = cin.fail() || (variable < min || variable > max);
 		while (isInvalid)
@@ -49,6 +49,7 @@ namespace tableofnumbers
 			cin >> variable;
 			isInvalid = cin.fail() || (variable < min || variable > max);
 		}
+		return variable;
 	}
 	
 	/*
@@ -65,15 +66,15 @@ namespace tableofnumbers
 
 		cout << "Enter number of values in table (between 1 and 25) : ";
 		cin >> numberOfValues;
-		InvalidInput(numberOfValues, 1, 25);
+		numberOfValues = InvalidInput(numberOfValues, 1, 25);
 
 		cout << "Enter the first value in table (between -1,000 and 1,000) : ";
 		cin >> firstValue;
-		InvalidInput(firstValue, -1000, 1000);
+		firstValue = InvalidInput(firstValue, -1000, 1000);
 
 		cout << "Enter increment value (between 1 and 20) : ";
 		cin >> incrementNumber;
-		InvalidInput(incrementNumber, 1, 20);
+		incrementNumber = InvalidInput(incrementNumber, 1, 20);
 
 		userInput[0] = numberOfValues;
 		userInput[1] = firstValue;

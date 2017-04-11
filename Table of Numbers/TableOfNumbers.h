@@ -21,7 +21,7 @@ namespace tableofnumbers
 	@param minimum the minimum value of the desired range
 	@param maximum the maximum value of the desired range
 	*/
-	void InvalidInput(double variable, int min, int max);
+	double InvalidInput(double variable, int min, int max);
 
 	/*
 	Prompts the user and extracts the data for table size, starting value, and increment value
